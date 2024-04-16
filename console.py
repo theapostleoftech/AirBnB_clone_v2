@@ -127,6 +127,9 @@ class HBNBCommand(cmd.Cmd):
     #     storage.save()
 
     def do_create(self, arg):
+        """
+        Create an object of any class
+        """
         args = arg.split()
         if not args:
             print("** class name missing **")
