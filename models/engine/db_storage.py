@@ -3,7 +3,7 @@ This is the module for the sqlalchemy database
 """
 import os
 from sqlalchemy import create_engine
-from sqlachemy.orm import sessionmaker, scoped_session
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 
 
@@ -55,8 +55,8 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        Base.metadate.create_all(self.__engine)
-        sele.__session = scoped_session(
+        Base.metadata.create_all(self.__engine)
+        self.__session = scoped_session(
             sessionmaker(
                 bind=self.__engine,
                 expire_on_commit=False
