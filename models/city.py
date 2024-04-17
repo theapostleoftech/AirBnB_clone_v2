@@ -1,9 +1,25 @@
 #!/usr/bin/python3
 """ City Module for HBNB project """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy.orm import relationship
 
 
-class City(BaseModel):
+class City(BaseModel, Base):
     """ The city class, contains state ID and name """
-    state_id = ""
-    name = ""
+    __tablename__ = "states"
+    name = Column(String(128), nullable=False)
+
+    cities = relationship(
+        "City",
+        backref="state",
+        cascade="all, delete, delete-orphan"
+        )
+
+    @property
+    def cities(self):
+        from models import storage
+        cities = storage.all(City).values()
+        return [city for city in cities if city.state_id == self.id]
+    # state_id = ""
+    # name = ""
