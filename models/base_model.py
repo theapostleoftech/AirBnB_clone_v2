@@ -6,6 +6,8 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
 import os
 
+import models
+
 storage_engine = os.getenv("HBNB_TYPE_STORAGE")
 
 if (storage_engine == "db"):
@@ -67,5 +69,5 @@ class BaseModel:
         """
         Deletes instances from storage
         """
-        from models import storage
-        storage.delete(self)
+        key = "{}.{}".format(type(self).__name__, self.id)
+        del models.storage.__objects[key]
