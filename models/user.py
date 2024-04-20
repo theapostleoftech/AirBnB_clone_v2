@@ -2,8 +2,9 @@
 """This module defines a class User"""
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
+import os
 
-storage_engine = environ.get("HBNB_TYPE_STORAGE")
+storage_engine = os.getenv("HBNB_TYPE_STORAGE")
 
 
 class User(BaseModel, Base):
