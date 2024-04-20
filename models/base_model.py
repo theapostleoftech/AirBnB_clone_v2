@@ -4,17 +4,9 @@ import uuid
 from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, DateTime
-import os
 
-import models
 
-storage_engine = os.getenv("HBNB_TYPE_STORAGE")
-
-if (storage_engine == "db"):
-    Base = declarative_base()
-else:
-    Base = object
-# Base = declarative_base()
+Base = declarative_base()
 
 
 class BaseModel:
@@ -69,5 +61,5 @@ class BaseModel:
         """
         Deletes instances from storage
         """
-        key = "{}.{}".format(type(self).__name__, self.id)
-        del models.storage.__objects[key]
+        from models import storage
+        storage.delete(self)
