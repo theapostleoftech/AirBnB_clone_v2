@@ -27,40 +27,54 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
+        """Query the current session and list all instances of cls
         """
-        Empty description
-        """
-        objects = {}
+        result = {}
         if cls:
-            result = self.__session.query(cls).all()
+            for row in self.__session.query(cls).all():
+                key = "{}.{}".format(cls.__name__, row.id)
+                row.to_dict()
+                result.update({key: row})
         else:
-            result = self.__session.query(State, City).all()
-            for row in result:
-                if isinstance(row, State):
-                    cls = State
-                else:
-                    cls = City
-                key = "{}.{}".format(cls.__Name__, row.id)
-                objects[key] = row
-        return objects
+            for table in models.dummy_tables:
+                cls = models.dummy_tables[table]
+                for row in self.__session.query(cls).all():
+                    key = "{}.{}".format(cls.__name__, row.id)
+                    row.to_dict()
+                    result.update({key: row})
+        return result
+
+    def rollback(self):
+        """rollback changes
+        """
+        self.__session.rollback()
 
     def new(self, obj):
-        """
-        Empty description
+        """add object to current session
         """
         self.__session.add(obj)
 
     def save(self):
+        """commit current done work
+        """
         self.__session.commit()
 
     def delete(self, obj=None):
-        if obj:
+        """delete obj from session
+        """
+        if (obj is None):
             self.__session.delete(obj)
 
     def reload(self):
+        """reload the session
+        """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(
-            sessionmaker(
-                bind=self.__engine,
-                expire_on_commit=False
-                ))
+        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Scope = scoped_session(Session)
+        self.__session = Scope()
+
+    def close(self):
+        """display our HBNB data
+        """
+        self.__session.__class__.close(self.__session)
+        self.reload()
