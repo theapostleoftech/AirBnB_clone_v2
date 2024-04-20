@@ -4,8 +4,6 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 import os
 
-from models.state import State
-
 storage_engine = os.getenv("HBNB_TYPE_STORAGE")
 
 
@@ -14,7 +12,7 @@ class City(BaseModel, Base):
     if (storage_engine == 'db'):
         __tablename__ = "cities"
         name = Column(String(128), nullable=False)
-        state_id = Column(String(60), ForeignKey(State.id), nullable=False)
+        state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
     else:
         name = ""
         state_id = ""
