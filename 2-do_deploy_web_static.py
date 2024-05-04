@@ -16,12 +16,15 @@ def do_deploy(archive_path):
     Deploys the archive to the web servers.
     """
     if not exists(archive_path):
+        print("Archive not found: {}".format(archive_path))
         return False
 
     # Extract file name and directory paths from archive_path
     file_name = archive_path.split("/")[-1]
-    no_ext = file_name.split(".")[0]
-    dest_path = "/data/web_static/releases/" + no_ext
+    no_ext = file_name.replace('.tgz', '')
+    dest_path = "/data/web_static/releases/" + no_ext + "/"
+    # no_ext = file_name.split(".")[0]
+    # dest_path = "/data/web_static/releases/" + no_ext
 
     try:
         # Upload archive to the /tmp/ directory
@@ -53,11 +56,3 @@ def do_deploy(archive_path):
     except Exception as e:
         print(f"Deployment failed: {e}")
         return False
-
-
-# Optionally, add a helper function to run it all
-def deploy():
-    archive_path = do_pack()
-    if archive_path is None:
-        return False
-    return do_deploy(archive_path)
