@@ -72,12 +72,12 @@ def do_deploy(archive_path):
         return False
 
 
-def deploy():
-    """
-    Deploys the latest version of the web_static folder to the web servers
-    """
-    archive_path = do_pack()
-    if not archive_path:
-        print("Failed to create archive.")
-        return False
-    return do_deploy(archive_path)
+# def deploy():
+#     """
+#     Deploys the latest version of the web_static folder to the web servers
+#     """
+#     archive_path = do_pack()
+#     if not archive_path:
+#         print("Failed to create archive.")
+#         return False
+#     return do_deploy(archive_path)
