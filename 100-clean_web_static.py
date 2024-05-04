@@ -20,7 +20,7 @@ def do_pack():
         file_name = "versions/web_static_$(date '+%Y%m%d%H%M%S').tgz"
         local("tar -cvzf {} web_static".format(file_name))
         return file_name
-    except Exception as :
+    except Exception as e:
         return None
 
 
@@ -75,10 +75,14 @@ def do_clean(number=0):
     """
     try:
         # Delete out-of-date archives in the versions folder
-        local("ls -1t versions | tail -n +{} | xargs -I {{}} rm versions/{{}}".format(number + 1))
+        local("ls -1t versions | tail -n +{} \
+              | xargs -I {{}} rm versions/{{}}".format(number + 1))
 
-        # Delete out-of-date archives in the /data/web_static/releases folder on the web servers
-        run("ls -1t /data/web_static/releases | tail -n +{} | xargs -I {{}} rm -rf /data/web_static/releases/{{}}".format(number + 1))
+        # Delete out-of-date archives in the
+        # /data/web_static/releases folder on the web servers
+        run("ls -1t /data/web_static/releases | \
+            tail -n +{} | xargs -I {{}} rm -rf \
+            /data/web_static/releases/{{}}".format(number + 1))
 
         print("Cleaned up archives.")
     except Exception as e:
