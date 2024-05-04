@@ -54,9 +54,10 @@ def do_deploy(archive_path):
         print(f"Deployment failed: {e}")
         return False
 
-# # Optionally, add a helper function to run it all
-# def deploy():
-#     archive_path = do_pack()
-#     if archive_path is None:
-#         return False
-#     return do_deploy(archive_path)
+
+# Optionally, add a helper function to run it all
+def deploy():
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
