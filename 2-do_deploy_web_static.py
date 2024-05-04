@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """
 Fabric script that distributes an archive to your web servers
@@ -9,7 +8,7 @@ from os.path import exists
 # Define your server IPs and user
 env.hosts = ['52.86.208.90', '54.166.135.118']
 env.user = 'ubuntu'
-env.key_filename = 'authorized_keys'  # Define your SSH private key here
+env.key_filename = 'id_rsa'  # Define your SSH private key here
 
 
 def do_deploy(archive_path):
@@ -51,7 +50,8 @@ def do_deploy(archive_path):
 
         print("New version deployed!")
         return True
-    except:
+    except Exception as e:
+        print(f"Deployment failed: {e}")
         return False
 
 # # Optionally, add a helper function to run it all
