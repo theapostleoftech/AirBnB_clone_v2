@@ -72,7 +72,7 @@ def do_deploy(archive_path):
         return False
 
 
-def deploy(archive_path):
+def deploy():
     """
     Deploys the latest version of the web_static folder to the web servers
     """
