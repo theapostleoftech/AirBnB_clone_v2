@@ -21,8 +21,10 @@ def do_deploy(archive_path):
 
     # Extract file name and directory paths from archive_path
     file_name = archive_path.split("/")[-1]
-    no_ext = file_name.replace('.tgz', '')
-    dest_path = "/data/web_static/releases/" + no_ext + "/"
+    # no_ext = file_name.replace('.tgz', '')
+    no_ext = file_name.split(".")[0]
+    dest_path = "/data/web_static/releases/{}".format(no_ext)
+    # dest_path = "/data/web_static/releases/" + no_ext + "/"
     # no_ext = file_name.split(".")[0]
     # dest_path = "/data/web_static/releases/" + no_ext
 
