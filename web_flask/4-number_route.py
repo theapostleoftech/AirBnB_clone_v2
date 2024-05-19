@@ -50,9 +50,10 @@ def hello_number_route(n):
     This function displays n is a number
     if n is an integer
     """
-    if int(n):
+    try:
+        n = int(n)
         return "{} is a number".format(n)
-    else:
+    except ValueError:
         return '4ot Found', 404
 
 
