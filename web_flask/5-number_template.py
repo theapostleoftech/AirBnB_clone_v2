@@ -55,7 +55,6 @@ def hello_number_route(n):
         return "{} is a number".format(n)
     except ValueError:
         return '4ot Found', 404
-    
 
 
 @app.route('/number_template/<n>', strict_slashes=False)
