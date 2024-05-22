@@ -8,6 +8,10 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
 from models.state import State
 from models.city import City
+from models.city import User
+from models.city import Place
+from models.city import Review
+from models.city import Amenity
 
 
 class DBStorage:
