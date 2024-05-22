@@ -33,7 +33,7 @@ class DBStorage:
         Queries the current database session
         """
         objects = {}
-        if cls:
+        if cls is None:
             result = self.__session.query(cls).all()
         else:
             result = self.__session.query(State, City).all()
@@ -58,7 +58,7 @@ class DBStorage:
 
     def delete(self, obj=None):
         """Deletes from the current database session"""
-        if obj:
+        if obj is not None:
             self.__session.delete(obj)
 
     def reload(self):
@@ -72,3 +72,7 @@ class DBStorage:
                 bind=self.__engine,
                 expire_on_commit=False
                 ))
+
+    def close(self):
+        """Close session"""
+        self.__session.close()
