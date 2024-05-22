@@ -22,13 +22,8 @@ def list_states_route():
 
 
 @app.teardown_appcontext
-def terminate_db(exception):
-    """
-    This functin closes the database connection
-    after each request
-    """
+def terminate_db(db):
     storage.close()
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
