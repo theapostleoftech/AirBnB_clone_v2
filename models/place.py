@@ -1,14 +1,10 @@
 #!/usr/bin/python3
 """This is the place class"""
 import os
-import models
-from models.amenity import Amenity
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, Integer, String, Float, Table
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-
-from models.review import Review
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id',
