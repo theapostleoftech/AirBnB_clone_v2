@@ -36,6 +36,12 @@ class BaseModel:
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
         return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+    
+    def __repr__(self):
+        """
+        Return a string representation
+        """
+        return self.__str__()
 
     def save(self):
         """Updates updated_at with current time when instance is changed"""
@@ -52,9 +58,9 @@ class BaseModel:
         result = self.__dict__.copy()
         if "_sa_instance_state" in result:
             del result["_sa_instance_state"]
-        result["__class__"] = self.__class__.__name__
-        result["created_at"] = result["created_at"].isoformat()
-        result["updated_at"] = result["updated_at"].isoformat()
+        result["__class__"] = str(type(self).__name__)
+        result["created_at"] = self.created_at.isoformat()
+        result["updated_at"] = self.updated_at.isoformat()
         return result
 
     def delete(self):
