@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def hello_route():
+def hello_hbnb():
     """
     Hello route listening on 0.0.0.0 port 5000
     """
