@@ -19,9 +19,9 @@ class State(BaseModel, Base):
                               )
     else:
         name = ""
-
-    @property
-    def cities(self):
-        from models import storage
-        cities = storage.all(City).values()
-        return [city for city in cities if city.state_id == self.id]
+        
+        @property
+        def cities(self):
+            from models import storage
+            cities = storage.all(City).values()
+            return [city for city in cities if city.state_id == self.id]
