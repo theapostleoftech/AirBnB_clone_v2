@@ -34,16 +34,20 @@ class DBStorage:
         """
         objects = {}
         if cls is None:
-            result = self.__session.query(cls).all()
+            classess = ['State', 'City', 'User', 'Place', 'Review', 'Amenity']
+
+            for cla in classess:
+                results = self.__session.query(eval(cla))
+                for obj in results:
+                    key = "{}.{}".format(type(obj).__name__, obj.id)
+                    objects[key] = obj
+
         else:
-            result = self.__session.query(State, City).all()
-            for row in result:
-                if isinstance(row, State):
-                    cls = State
-                else:
-                    cls = City
-                key = "{}.{}".format(cls.__Name__, row.id)
-                objects[key] = row
+            results = self.__session.query(cls).all()
+            for obj in results:
+                key = "{}.{}".format(type(obj).__name__, obj.id)
+                objects[key] = obj
+
         return objects
 
     def new(self, obj):
