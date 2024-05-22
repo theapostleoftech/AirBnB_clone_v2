@@ -67,7 +67,7 @@ def hbnb_route():
 
 
 @app.teardown_appcontext
-def close_db(db):
+def terminate_db(db):
     storage.close()
 
 
