@@ -11,15 +11,6 @@ from models.state import State
 app = Flask(__name__)
 
 
-@app.teardown_appcontext
-def terminate_db(exception):
-    """
-    This functin closes the database connection
-    after each request
-    """
-    storage.close()
-
-
 @app.route('/states_list', strict_slashes=False)
 def list_states_route():
     """
@@ -28,6 +19,15 @@ def list_states_route():
     """
     states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
+
+
+@app.teardown_appcontext
+def terminate_db(exception):
+    """
+    This functin closes the database connection
+    after each request
+    """
+    storage.close()
 
 
 if __name__ == '__main__':
