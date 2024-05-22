@@ -26,7 +26,7 @@ def list_states_route():
     This function lists states in a HTML page
     sorted by name
     """
-    states = sorted(storage.all(State).values(), key=lambda state: state.name)
+    states = storage.all(State).values()
     return render_template('7-states_list.html', states=states)
 
 
